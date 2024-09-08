@@ -18,6 +18,14 @@ module.exports = (sequelize) => {
         allowNull: false,
         unique: true,
       },
+      headline: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      bio: {
+        type: DataTypes.TEXT,
+        allowNull: true,
+      },
       password: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -26,10 +34,15 @@ module.exports = (sequelize) => {
         type: DataTypes.ENUM('businessOwner', 'serviceSeeker'),
         defaultValue: 'serviceSeeker',
       },
+      // profilePicture: {
+      //   type: DataTypes.BLOB('long'), // BLOB type for storing image data
+      //   allowNull: true,
+      // },
     },
     {
       sequelize,
       modelName: 'User',
+      timestamps: true,
     }
   )
 

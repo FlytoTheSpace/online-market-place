@@ -3,23 +3,24 @@ const dotenv = require('dotenv')
 const cors = require('cors')
 const multer = require('multer') // Import multer
 const { sequelize } = require('./models')
+const profileRoute = require('./routes/profileRoutes')
 
 dotenv.config()
 
 const app = express()
 
-// Middleware to parse JSON bodies
 app.use(express.json())
 
-// Middleware to parse URL-encoded bodies
 app.use(express.urlencoded({ extended: true }))
-
-// Middleware to parse text/html bodies
 
 app.use(express.text({ type: 'text/plain;charset=UTF-8' }))
 
 // Initialize multer
-const upload = multer()
+const storage = multer.memoryStorage()
+const upload = multer({
+  storage: storage,
+  limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
+})
 
 // Middleware to handle multipart/form-data
 app.use(upload.array()) // or use upload.single('file') for single file upload
@@ -29,6 +30,7 @@ app.use(cors())
 
 // Define Routes
 app.use('/api/auth', require('./routes/authRoutes'))
+app.use('/api', profileRoute)
 
 // Test Database Connection
 sequelize

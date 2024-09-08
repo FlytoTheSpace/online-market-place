@@ -24,6 +24,7 @@ exports.register = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        createdAt: user.createdAt,
       },
     }
 
@@ -97,7 +98,7 @@ exports.login = async (req, res) => {
 
     const isMatch = await bcrypt.compare(password, user.password)
     if (!isMatch) {
-      return res.status(400).json({ msg: 'Invalid credentials' })
+      return res.status(400).json({ status: 400, msg: 'Invalid credentials' })
     }
 
     const payload = {
@@ -106,6 +107,7 @@ exports.login = async (req, res) => {
         name: user.name,
         email: user.email,
         role: user.role,
+        createdAt: user.createdAt,
       },
     }
 
