@@ -9,7 +9,7 @@ const storage = multer.memoryStorage()
 const upload = multer({ storage: storage })
 
 // PUT route to update user profile
-router.put('/profile/:id', upload.single('file'), async (req, res) => {
+router.patch('/profile/:id', upload.single('file'), async (req, res) => {
   const { id } = req.params
   const { name, email, headline, bio, password } = req.body
   const profilePicture = req.file // Uploaded image

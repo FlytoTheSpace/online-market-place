@@ -23,7 +23,9 @@ const upload = multer({
 })
 
 // Middleware to handle multipart/form-data
-app.use(upload.array()) // or use upload.single('file') for single file upload
+
+// This Middleware is Not Request, and This was causing the Error:
+// app.use(upload.array()) // or use upload.single('file') for single file upload
 
 // Enable CORS
 app.use(cors())
